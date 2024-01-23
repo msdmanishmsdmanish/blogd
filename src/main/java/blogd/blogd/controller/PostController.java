@@ -28,9 +28,16 @@ public class PostController {
         PostDto dto=postService.getPostByid(id);
         return new ResponseEntity<>(dto,HttpStatus.OK);
     }
+    //http://localhost:8080/mani?pageNo=0&pageSize=5
     @GetMapping()
-    public List<PostDto>getAllPost(){
-        List<PostDto>postDtos=postService.getAllPost();
+    public List<PostDto>getAllPost(
+            @RequestParam(name="pageNo",required = false,defaultValue = "0")int pageNo,
+            @RequestParam(name="pageSize",required = false,defaultValue = "3")int pageSize,
+            @RequestParam(name="sortBy",required = false,defaultValue = "id")String sortBy,
+            @RequestParam(name="sortDir",required = false,defaultValue = "id")String sortDir
+
+    ){
+        List<PostDto>postDtos=postService.getAllPost(pageNo,pageSize,sortBy,sortDir);
         return postDtos;
     }
 }
